@@ -2,5 +2,12 @@ import React from "react";
 import axios from "axios";
 
 export default function Weather() {
-  return <h1>hello world</h1>;
+  let form = (
+    <form>
+      <input type="search" />
+      <input type="submit" />
+    </form>
+  );
+
+  return <div className="Weather">{form}</div>;
 }
