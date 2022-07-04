@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Weather.css";
 import FormattedDate from "./FormattedDate";
 
 export default function Weather() {
@@ -32,24 +33,66 @@ export default function Weather() {
 
   let form = (
     <form onSubmit={handleSubmit}>
-      <input type="search" onChange={updateCity} />
-      <input type="submit" />
+      <div className="row">
+        <div className="col-6">
+          <input
+            type="search"
+            className="searchForm"
+            onChange={updateCity}
+            autoFocus="on"
+            placeholder="Search for City..."
+          />
+        </div>
+        <div className="col-2">
+          <input type="submit" className="submitSearch" />
+        </div>
+      </div>
     </form>
+  );
+
+  let searchedCity = (
+    <div className="row">
+      <div className="col">
+        <h1>{city}</h1>
+        <ul className="currentCitydescription">
+          <li>
+            <FormattedDate date={weather.date} />
+          </li>
+          <li>{weather.description}</li>
+        </ul>
+      </div>
+    </div>
+  );
+
+  let currentTemperature = (
+    <div className="row">
+      <div className="col-6">
+        <div className="d-flex weatherTemperature">
+          <img src={weather.icon} alt="Weather_Icon" className="weatherIcon" />
+          <div className="temperature">{weather.temperature}</div>
+          <span className="unit">℃</span>
+        </div>
+      </div>
+      <div className="col-6">
+        <ul className="weather-conditions">
+          <li>
+            <strong>Humidity: {weather.humidity}</strong>
+            <span></span>%
+          </li>
+          <li>
+            <strong>Wind: {weather.wind}</strong>
+            <span></span> mph
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 
   return (
     <div className="Weather">
       {form}
-      <h1>{city}</h1>
-      <ul>
-        <li>{weather.temperature}</li>
-        <li>{weather.humidity}</li>
-        <li>{weather.wind}</li>
-        <li>{weather.description}</li>
-        <li>
-          <FormattedDate date={weather.date} />
-        </li>
-      </ul>
+      {searchedCity}
+      {currentTemperature}
     </div>
   );
 }
